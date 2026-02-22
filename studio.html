@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Westline Studio | Oferta</title>
+    <link rel="icon" type="image/png" href="wl.png">
+    <link rel="apple-touch-icon" href="wl.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --accent: #9d4edd; --text: #ffffff; --gray: #888; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #050505 100%);
+            color: var(--text); padding: 40px 5%; text-align: center; position: relative; min-height: 100vh; overflow-x: hidden;
+        }
+        body::before {
+            content: ""; position: fixed; top: -1000px; left: 0; width: 100%; height: 2000px;
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px; opacity: 0.3; animation: moveStars 100s linear infinite; z-index: -1;
+        }
+        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(1000px); } }
+
+        .back { display: block; text-align: left; color: var(--accent); text-decoration: none; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; }
+        .slogan { color: var(--accent); letter-spacing: 5px; font-weight: 700; font-size: 0.8rem; margin-bottom: 40px; text-transform: uppercase; }
+
+        .pricing-table { width: 100%; max-width: 800px; margin: 20px auto 60px; border-collapse: collapse; background: rgba(15,15,15,0.8); backdrop-filter: blur(10px); border: 1px solid #222; }
+        .pricing-table td, .pricing-table th { padding: 15px; border-bottom: 1px solid #222; text-align: left; }
+        .pricing-table th { color: var(--accent); text-transform: uppercase; font-size: 0.8rem; }
+
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; max-width: 1100px; margin: 30px auto; }
+        .work-item { background: #111; border: 1px solid #222; border-radius: 10px; overflow: hidden; aspect-ratio: 16/9; }
+        .work-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .order-box { margin-top: 60px; padding: 40px; background: rgba(157, 78, 221, 0.05); border-radius: 20px; border: 1px solid var(--accent); display: inline-block; width: 100%; max-width: 600px; }
+        .order-btn { display: block; background: var(--accent); color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+
+        #music-player { position: fixed; bottom: 20px; right: 20px; background: rgba(15,15,15,0.95); border: 1px solid var(--accent); padding: 10px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; font-size: 0.6rem; font-weight: 900; z-index: 100; }
+        .play-btn { background: var(--accent); border: none; color: white; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="music-player">
+        <button class="play-btn" onclick="toggleMusic()">▶</button>
+        <span>CHILL LOFI</span>
+        <audio id="bgMusic" loop><source src="https://stream.zeno.fm/0r0xa792kwzuv" type="audio/mpeg"></audio>
+    </div>
+
+    <a href="index.html" class="back">← POWRÓT</a>
+    <h1>Westline <span style="color:var(--accent)">Studio</span></h1>
+    <p class="slogan">CONTENT • DESIGN • ESPORT</p>
+
+    <table class="pricing-table">
+        <thead><tr><th>Pakiet</th><th>Czas</th><th>Cena</th></tr></thead>
+        <tbody>
+            <tr><td><strong>BASIC</strong></td><td>do 3 dni</td><td>50 PLN/msc</td></tr>
+            <tr><td><strong>STANDARD</strong></td><td>do 2 dni</td><td>100 PLN/msc</td></tr>
+            <tr><td><strong>PRO</strong></td><td>do 1 dnia</td><td>150 PLN/msc</td></tr>
+	<tr><td><strong>Niestandardowe</strong></td><td>do 5 dni</td><td>do negocjacji</td></tr>
+        </tbody>
+    </table>
+
+    <h2>OSTATNIE REALIZACJE</h2>
+    <div class="gallery">
+        <div class="work-item"><img src="projekt1.jpg" alt="Praca 1"></div>
+        <div class="work-item"><img src="projekt2.jpg" alt="Praca 2"></div>
+        <div class="work-item"><img src="projekt3.jpg" alt="Praca 3"></div>
+        <div class="work-item"><img src="projekt4.jpg" alt="Praca 4"></div>
+        <div class="work-item"><img src="projekt5.png" alt="Praca 5"></div>
+        <div class="work-item"><img src="projekt6.png" alt="Praca 6"></div>
+    </div>
+
+    <div class="order-box">
+        <h3>ZŁÓŻ ZAMÓWIENIE</h3><br>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd7IbxFYQEu3KBsuZYD8ZcKGwTsmtWdjj6LatbaCwUy54RlqA/viewform?usp=header" class="order-btn" target="_blank">FORMULARZ KLIENTA</a>
+        <p style="color: var(--gray); font-size: 0.8rem; margin-top: 15px;">westline.studio@outlook.com</p>
+    </div>
+
+    <script>
+        var music = document.getElementById("bgMusic");
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.querySelector(".play-btn").innerHTML = "⏸"; }
+            else { music.pause(); document.querySelector(".play-btn").innerHTML = "▶"; }
+        }
+    </script>
+</body>
+</html>

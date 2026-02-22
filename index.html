@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WestMoon Co. | Official Hub</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --accent: #9d4edd; --text: #ffffff; --gray: #888; --live: #ff4b4b; }
+        
+        /* Punkt 6: Animacja wejścia (Fade-in) */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: default; }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #050505 100%);
+            color: var(--text);
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Punkt 3: Gwiazdy gotowe pod paralaksę */
+        #stars-container {
+            position: fixed; top: 0; left: 0; width: 110%; height: 110%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px; opacity: 0.3; z-index: -1;
+            transition: transform 0.1s ease-out;
+        }
+
+        a, button, .mini-card, .yt-card { cursor: pointer; }
+
+        .fade-in { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+
+        /* Nagłówek i Status */
+        .live-indicator {
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; font-weight: 900;
+            background: rgba(255, 75, 75, 0.1); padding: 5px 12px; border-radius: 20px; border: 1px solid var(--live);
+            color: var(--live); margin-top: 40px; text-transform: uppercase;
+        }
+        .dot { width: 8px; height: 8px; background: var(--live); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } }
+
+        .hero { padding: 40px 20px; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; letter-spacing: -2px; }
+        .hero h1 span { color: var(--accent); text-shadow: 0 0 30px rgba(157, 78, 221, 0.5); }
+        .slogan { letter-spacing: 6px; color: var(--accent); font-weight: 700; font-size: 0.8rem; margin-top: 10px; text-transform: uppercase; }
+
+        /* Statystyki */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 50px; padding: 40px 20px; margin: 40px 0;
+            background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-item h3 { font-size: 2rem; font-weight: 900; color: var(--accent); }
+        .stat-item p { font-size: 0.6rem; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Grid Główny */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .card { background: rgba(15, 15, 15, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; transition: 0.4s; text-decoration: none; color: white; }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); }
+
+        /* YouTube Sekcja */
+        .yt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .yt-card { text-decoration: none; color: white; transition: 0.3s; }
+        .yt-thumb { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; }
+        .yt-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .yt-card:hover .yt-thumb img { transform: scale(1.05); filter: brightness(0.7); }
+        .yt-card p { margin-top: 10px; font-size: 0.75rem; font-weight: 700; color: var(--gray); text-align: left; }
+        .yt-card:hover p { color: var(--accent); }
+
+        /* O mnie i inne */
+        .about-section { padding: 60px 10%; background: rgba(0,0,0,0.3); margin: 60px 0; }
+        .small-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .mini-card { background: rgba(157, 78, 221, 0.1); border: 1px solid rgba(157, 78, 221, 0.2); padding: 20px; border-radius: 10px; text-decoration: none; color: white; font-weight: 900; transition: 0.3s; }
+        .mini-card:hover { background: var(--accent); color: black; }
+
+        .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 30px 0 80px; }
+        .social-btn { padding: 12px 25px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: white; text-decoration: none; font-size: 0.7rem; font-weight: bold; border-radius: 5px; transition: 0.3s; }
+        .social-btn:hover { background: var(--accent); }
+
+        #music-player { position: fixed; bottom: 20px; right: 20px; background: rgba(15,15,15,0.95); border: 1px solid var(--accent); padding: 10px 15px; border-radius: 50px; display: flex; align-items: center; gap: 10px; font-size: 0.6rem; font-weight: 900; z-index: 100; }
+        .play-btn { background: var(--accent); border: none; color: white; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div id="music-player">
+        <button class="play-btn" onclick="toggleMusic()">▶</button>
+        <span>CHILL LOFI</span>
+        <audio id="bgMusic" loop><source src="https://stream.zeno.fm/0r0xa792kwzuv" type="audio/mpeg"></audio>
+    </div>
+
+    <div class="live-indicator fade-in">
+        <div class="dot"></div> LIVE NA TWITCHU
+    </div>
+
+    <section class="hero fade-in">
+        <h1>WestMoon <span>Co.</span></h1>
+        <p class="slogan">CONTENT • DESIGN • ESPORT</p>
+    </section>
+
+    <div class="stats-bar fade-in delay-1">
+        <div class="stat-item"><h3>20+</h3><p>Projektów</p></div>
+        <div class="stat-item"><h3>100+</h3><p>Godzin Live</p></div>
+        <div class="stat-item"><h3>2026</h3><p>Est. Year</p></div>
+    </div>
+
+    <div class="grid-container fade-in delay-2">
+        <a href="studio.html" class="card"><h2>Westline Studio</h2><p>Design House</p></a>
+        <a href="clan.html" class="card"><h2>WCS Clan</h2><p>Esport Team</p></a>
+    </div>
+
+    <h2 class="fade-in" style="margin-top: 80px; text-transform: uppercase; letter-spacing: 3px;">Ostatnio na YouTube</h2>
+    <div class="yt-grid fade-in delay-1">
+        <a href="https://youtu.be/mtWATRvrq34?si=nu4UnzQ_PxFooPg0" target="_blank" class="yt-card">
+            <div class="yt-thumb"><img src="https://img.youtube.com/vi/mtWATRvrq34/maxresdefault.jpg" alt="Vlog"></div>
+            <p>NOWY serwer MINECRAFT - tgsm #1</p>
+        </a>
+        <a href="https://youtu.be/04wnq31AA5Y?si=tfd6Bj4HVGEimLKP" target="_blank" class="yt-card">
+            <div class="yt-thumb"><img src="https://img.youtube.com/vi/04wnq31AA5Y/maxresdefault.jpg" alt="CS2"></div>
+            <p>CS2 to chyba nie jest gra dla mnie XD</p>
+        </a>
+        <a href="https://youtu.be/wKbbc4h7LTI?si=pHEGwQqQVP0MLtRH" target="_blank" class="yt-card">
+            <div class="yt-thumb"><img src="https://img.youtube.com/vi/wKbbc4h7LTI/maxresdefault.jpg" alt="Setup"></div>
+            <p>ZIEMNIORY! - SkyBlock #4</p>
+        </a>
+    </div>
+
+    <section class="about-section fade-in">
+        <h2>Kim jestem?</h2>
+        <p style="margin-top: 15px; color: var(--gray);">Tworzę content na YouTube i Twitch, projektuję profesjonalne grafiki w Westline Studio oraz rozwijam klan WCS.</p>
+    </section>
+
+    <h2 class="fade-in">Wsparcie & Projekty</h2>
+    <div class="small-grid fade-in">
+        <a href="https://streamelements.com/afganol/tip" target="_blank" class="mini-card">TIPy</a>
+        <a href="https://cs.money/market/buy/?steamId=76561199036520272" target="_blank" class="mini-card">SKINY</a>
+        <a href="https://www.behance.net/gabrielgr_designer" target="_blank" class="mini-card">BEHANCE</a>
+    </div>
+
+    <h2 class="fade-in" style="margin-top: 40px;">KONTAKT</h2>
+    <div class="social-links fade-in">
+        <a href="https://youtube.com/@Afganinho" target="_blank" class="social-btn">YouTube</a>
+        <a href="https://twitch.tv/afganol" target="_blank" class="social-btn">Twitch</a>
+        <a href="https://discord.gg/CzZ8duKg" target="_blank" class="social-btn">Discord</a>
+        <a href="mailto:westline.studio@outlook.com" class="social-btn">E-mail</a>
+    </div>
+
+    <script>
+        // Punkt 3: Paralaksa Gwiazd
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.getElementById('stars-container').style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Obsługa muzyki
+        var music = document.getElementById("bgMusic");
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.querySelector(".play-btn").innerHTML = "⏸"; }
+            else { music.pause(); document.querySelector(".play-btn").innerHTML = "▶"; }
+        }
+    </script>
+</body>
+</html>
