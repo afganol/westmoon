@@ -951,41 +951,36 @@
         <p class="section-label mb-6">Formularz kontaktowy</p>
         
         <!-- ZMIANA: div zamieniony na form, dodany link Formspree -->
-        <form action="https://formspree.io/f/xeenqkal" method="POST" class="space-y-4">
-            
-            <div>
-                <label class="block text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Imię i Nazwisko</label>
-                <!-- ZMIANA: dodano name="name" oraz required -->
-                <input type="text" name="name" class="form-input" placeholder="Jan Kowalski" required />
-            </div>
+      <form action="https://formspree.io/f/xeenqkal" method="POST" class="space-y-4">
+    <div>
+        <label class="...">Imię i Nazwisko</label>
+        <!-- MUSI BYĆ name="name" -->
+        <input type="text" name="name" class="form-input" placeholder="Jan Kowalski" required />
+    </div>
 
-            <div>
-                <label class="block text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Email</label>
-                <!-- ZMIANA: dodano name="email" oraz required -->
-                <input type="email" name="email" class="form-input" placeholder="jan@example.com" required />
-            </div>
+    <div>
+        <label class="...">Email</label>
+        <!-- MUSI BYĆ name="email" -->
+        <input type="email" name="email" class="form-input" placeholder="jan@example.com" required />
+    </div>
 
-            <div>
-                <label class="block text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Temat</label>
-                <!-- ZMIANA: dodano name="subject" -->
-                <select name="subject" class="form-input">
-                    <option value="wspolpraca" selected>Współpraca</option>
-                    <option value="projekt">Zamówienie projektu</option>
-                    <option value="rekrutacja">Rekrutacja WCS</option>
-                    <option value="inne">Inne</option>
-                </select>
-            </div>
+    <div>
+        <label class="...">Temat</label>
+        <!-- MUSI BYĆ name="subject" -->
+        <select name="subject" class="form-input">
+            <option value="wspolpraca">Współpraca</option>
+            <option value="projekt">Zamówienie projektu</option>
+        </select>
+    </div>
 
-            <div>
-                <label class="block text-xs text-gray-600 uppercase tracking-wider mb-2 font-semibold">Wiadomość</label>
-                <!-- ZMIANA: dodano name="message" oraz required -->
-                <textarea name="message" class="form-input" rows="5" placeholder="Opisz czego szukasz..." required></textarea>
-            </div>
+    <div>
+        <label class="...">Wiadomość</label>
+        <!-- MUSI BYĆ name="message" -->
+        <textarea name="message" class="form-input" rows="5" required></textarea>
+    </div>
 
-            <!-- ZMIANA: usunięto onclick, dodano type="submit" -->
-            <button type="submit" class="btn-primary w-full text-center">Wyślij wiadomość -></button>
-
-        </form> <!-- ZMIANA: zamknięcie tagu form -->
+    <button type="submit" class="btn-primary w-full text-center">Wyślij wiadomość -></button>
+</form>
     </div>
 </div>
 
