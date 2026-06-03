@@ -1,1066 +1,1438 @@
+`slides:Westmoon Co.:index.html`
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WESTMOON — kreatywność i esport</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            neon: '#a855f7',
-            'neon-dim': '#7c3aed',
-            'neon-glow': '#c084fc',
-            bg: '#050505',
-            surface: '#0d0d0d',
-            card: '#111111',
-            border: '#1f1f1f',
-          },
-          fontFamily: {
-            heading: ['Barlow Condensed', 'sans-serif'],
-            body: ['Inter', 'sans-serif'],
-          },
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WESTMOON | Creative Hub & Esports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Dark Mode (Domyślny) */
+            --bg-main: #0a080e;
+            --bg-card: #110e17;
+            --bg-card-hover: #191522;
+            --text-main: #ffffff;
+            --text-muted: #9590a8;
+            --border-studio: #ff4b5c;
+            --border-clan: #9b5de5;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --glow-studio: rgba(255, 75, 92, 0.15);
+            --glow-clan: rgba(155, 93, 229, 0.15);
         }
-      }
-    }
-  </script>
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
+        body.light-mode {
+            /* Light Mode */
+            --bg-main: #f5f4f8;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f0edf5;
+            --text-main: #110e17;
+            --text-muted: #5c5770;
+            --glow-studio: rgba(255, 75, 92, 0.05);
+            --glow-clan: rgba(155, 93, 229, 0.05);
+        }
 
-    :root {
-      --neon: #a855f7;
-      --neon-dim: #7c3aed;
-      --neon-glow: #c084fc;
-      --bg: #050505;
-      --surface: #0d0d0d;
-      --card: #111111;
-      --border: #1f1f1f;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
 
-    html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            transition: var(--transition);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: #e5e5e5;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-    }
+        /* Ambient Background Glows */
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-color, var(--glow-studio)) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(80px);
+            transition: var(--transition);
+        }
+        #glow1 { top: -200px; left: -200px; --glow-color: var(--glow-studio); }
+        #glow2 { bottom: -200px; right: -200px; --glow-color: var(--glow-clan); }
 
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none !important;
-    }
+        /* Nawigacja */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 8, 14, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
 
-    .content-layer {
-      position: relative;
-      z-index: 2;
-      pointer-events: auto;
-    }
+        body.light-mode header {
+            background: rgba(245, 244, 248, 0.8);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
 
-    /* Ensure all interactive elements are always clickable */
-    a, button, input, select, textarea {
-      position: relative;
-      z-index: 10;
-      pointer-events: auto !important;
-    }
+        .logo-nav {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(5,5,5,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(168,85,247,0.12);
-    }
+        .logo-nav img {
+            height: 50px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
 
-    .logo-glow {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-style: italic;
-      font-weight: 900;
-      font-size: 1.5rem;
-      letter-spacing: 0.08em;
-      color: #fff;
-      text-shadow:
-        0 0 8px var(--neon),
-        0 0 24px var(--neon),
-        0 0 48px var(--neon-dim);
-      text-decoration: none;
-    }
+        .logo-nav img:hover {
+            transform: scale(1.05);
+        }
 
-    .nav-link {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      font-size: 0.85rem;
-      color: #aaa;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-link:hover { color: var(--neon-glow); }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            align-items: center;
+        }
 
-    .btn-nav {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      padding: 0.45rem 1.2rem;
-      border: 1px solid var(--neon);
-      color: var(--neon);
-      background: transparent;
-      text-decoration: none;
-      border-radius: 3px;
-      transition: all 0.2s;
-    }
-    .btn-nav:hover {
-      background: var(--neon);
-      color: #000;
-      box-shadow: 0 0 16px var(--neon);
-    }
+        nav ul li a {
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
 
-    /* HERO */
-    .hero-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(5rem, 18vw, 16rem);
-      line-height: 0.88;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow:
-        0 0 40px rgba(168,85,247,0.3),
-        0 0 100px rgba(168,85,247,0.1);
-    }
+        nav ul li a:hover, nav ul li a.active {
+            opacity: 1;
+            color: var(--active-color, var(--border-studio));
+            text-shadow: 0 0 10px var(--glow-color, var(--glow-studio));
+        }
 
-    .hero-subtitle {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      color: var(--neon);
-    }
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .btn-primary {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      font-size: 1rem;
-      text-transform: uppercase;
-      padding: 1rem 2.5rem;
-      background: var(--neon);
-      color: #000;
-      text-decoration: none;
-      border-radius: 4px;
-      display: inline-block;
-      transition: all 0.25s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary:hover {
-      background: var(--neon-glow);
-      box-shadow: 0 0 32px var(--neon), 0 0 64px rgba(168,85,247,0.4);
-      transform: translateY(-2px);
-    }
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
 
-    .btn-outline {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      font-size: 1rem;
-      text-transform: uppercase;
-      padding: 1rem 2.5rem;
-      background: transparent;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      display: inline-block;
-      transition: all 0.25s;
-      border: 1px solid rgba(255,255,255,0.2);
-      cursor: pointer;
-    }
-    .btn-outline:hover {
-      border-color: var(--neon);
-      color: var(--neon);
-      box-shadow: 0 0 16px rgba(168,85,247,0.2);
-      transform: translateY(-2px);
-    }
+        body.light-mode .theme-toggle {
+            border-color: rgba(0,0,0,0.1);
+        }
 
-    /* SECTION HEADINGS */
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      font-size: 0.7rem;
-      color: var(--neon);
-      text-transform: uppercase;
-    }
+        .theme-toggle:hover {
+            background: var(--text-main);
+            color: var(--bg-main);
+            transform: translateY(-2px);
+        }
 
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 0.92;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: #fff;
-    }
+        /* Kontener i Widoki (Views) */
+        .container {
+            max-width: 1200px;
+            margin: 140px auto 60px auto;
+            padding: 0 20px;
+        }
 
-    /* BENTO GRID */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
+        .view {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
 
-    .bento-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(168,85,247,0.04), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .bento-card:hover::before { opacity: 1; }
-    .bento-card:hover {
-      border-color: rgba(168,85,247,0.3);
-      box-shadow: 0 0 24px rgba(168,85,247,0.08);
-    }
+        .view.active-view {
+            display: block;
+        }
 
-    .bento-card.span-2 { grid-column: span 2; }
-    .bento-card.span-3 { grid-column: span 3; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* PORTFOLIO GRID */
-    .portfolio-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      aspect-ratio: 16/10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s;
-    }
-    .portfolio-item:hover {
-      border-color: rgba(168,85,247,0.4);
-      box-shadow: 0 0 32px rgba(168,85,247,0.1);
-    }
-    .portfolio-item::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(168,85,247,0.05), rgba(124,58,237,0.08));
-    }
+        /* Wspólne style boksów i przycisków */
+        .section-box {
+            background-color: var(--bg-card);
+            border: 2px solid var(--box-border, #221d2e);
+            border-radius: 24px;
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* PRICING CARDS */
-    .price-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .price-card:hover {
-      border-color: rgba(168,85,247,0.35);
-      box-shadow: 0 0 40px rgba(168,85,247,0.1);
-      transform: translateY(-4px);
-    }
-    .price-card.featured {
-      border-color: var(--neon);
-      box-shadow: 0 0 48px rgba(168,85,247,0.2), inset 0 1px 0 rgba(168,85,247,0.2);
-    }
-    .price-card.featured::before {
-      content: 'POLECANE';
-      position: absolute;
-      top: 1rem; right: 1rem;
-      background: var(--neon);
-      color: #000;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 99px;
-    }
+        body.light-mode .section-box {
+            --box-border: #e1dde9;
+        }
 
-    /* PROCESS STEPS */
-    .step-num {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 4rem;
-      line-height: 1;
-      color: rgba(168,85,247,0.2);
-    }
+        .section-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
 
-    /* SEPARATOR */
-    .section-sep {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--neon), transparent);
-      margin: 0 auto;
-      opacity: 0.4;
-    }
+        .btn-main {
+            padding: 16px 36px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            background: transparent;
+            display: inline-block;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
 
-    /* TIMELINE */
-    .timeline-dot {
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: var(--neon);
-      box-shadow: 0 0 12px var(--neon);
-      flex-shrink: 0;
-    }
-    .timeline-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--neon), rgba(168,85,247,0.2));
-    }
+        .btn-studio {
+            border: 3px solid var(--border-studio);
+            color: var(--text-main);
+        }
 
-    /* ROSTER */
-    .roster-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem 1rem;
-      text-align: center;
-      transition: all 0.3s;
-    }
-    .roster-card:hover {
-      border-color: rgba(168,85,247,0.4);
-      box-shadow: 0 0 32px rgba(168,85,247,0.1);
-      transform: translateY(-3px);
-    }
-    .roster-avatar {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--neon-dim), var(--neon));
-      margin: 0 auto 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-    .pulse-card {
-      animation: pulse-border 2s ease-in-out infinite;
-    }
-    @keyframes pulse-border {
-      0%, 100% { border-color: rgba(168,85,247,0.3); box-shadow: 0 0 12px rgba(168,85,247,0.1); }
-      50% { border-color: var(--neon); box-shadow: 0 0 32px rgba(168,85,247,0.3); }
-    }
+        .btn-studio:hover {
+            background: var(--border-studio);
+            box-shadow: 0 0 25px rgba(255, 75, 92, 0.4);
+            color: #fff;
+            transform: translateY(-2px);
+        }
 
-    /* CONTACT TILES */
-    .contact-tile {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.75rem 2rem;
-      text-decoration: none;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 1.25rem;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .contact-tile:hover {
-      border-color: rgba(168,85,247,0.4);
-      background: rgba(168,85,247,0.05);
-      transform: translateY(-3px);
-      box-shadow: 0 0 32px rgba(168,85,247,0.12);
-    }
-    .tile-icon {
-      width: 48px; height: 48px;
-      border-radius: 10px;
-      background: rgba(168,85,247,0.12);
-      border: 1px solid rgba(168,85,247,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .btn-clan {
+            border: 3px solid var(--border-clan);
+            color: var(--text-main);
+        }
 
-    /* FORM */
-    .form-input {
-      width: 100%;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.85rem 1rem;
-      color: #e5e5e5;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-input:focus {
-      border-color: var(--neon);
-      box-shadow: 0 0 0 3px rgba(168,85,247,0.1);
-    }
-    .form-input::placeholder { color: #555; }
-    select.form-input option { background: #111; color: #e5e5e5; }
+        .btn-clan:hover {
+            background: var(--border-clan);
+            box-shadow: 0 0 25px rgba(155, 93, 229, 0.4);
+            color: #fff;
+            transform: translateY(-2px);
+        }
 
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      background: var(--bg);
-    }
+        /* --- WIDOK: HUB / INDEX --- */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-    /* SCROLLBAR */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--neon-dim); border-radius: 2px; }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3.5rem, 9vw, 7.5rem);
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
 
-    /* NEON DIVIDER TEXT */
-    .neon-text {
-      color: var(--neon);
-      text-shadow: 0 0 12px var(--neon);
-    }
+        .hero .tags {
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+        }
 
-    /* AOS overrides — never block pointer events */
-    [data-aos] { pointer-events: auto !important; }
-    [data-aos].aos-animate { pointer-events: auto !important; }
+        .hero .tags span {
+            margin: 0 10px;
+            color: var(--border-studio);
+        }
 
-    @media (max-width: 768px) {
-      .bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .bento-card.span-2 { grid-column: span 1; }
-      .bento-card.span-3 { grid-column: span 1; }
-    }
-  </style>
+        .cta-buttons {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* --- WIDOK: STUDIO --- */
+        .page-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .btn-action {
+            background: transparent;
+            border: 3px solid var(--action-color, var(--border-studio));
+            color: var(--text-main);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-action:hover {
+            background: var(--action-color, var(--border-studio));
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 75, 92, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 900px) {
+            .studio-grid { grid-template-columns: 1fr; }
+        }
+
+        .about-studio h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--border-studio);
+        }
+
+        .about-studio p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        /* Siatka Portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            border: 2px solid rgba(255,255,255,0.05);
+            background: var(--bg-card);
+            border-radius: 20px;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        body.light-mode .portfolio-item {
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .portfolio-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(17, 14, 23, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item .overlay h4 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            color: var(--border-studio);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .portfolio-item .overlay p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Cennik */
+        .pricing-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 35px 25px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        body.light-mode .price-card {
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--border-clan);
+            box-shadow: 0 5px 20px var(--glow-clan);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 25px;
+            background: var(--border-clan);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(155, 93, 229, 0.4);
+        }
+
+        .price-card h4 {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--border-studio);
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+        }
+
+        .price-card.featured h4 {
+            color: var(--border-clan);
+        }
+
+        .price-card .price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            font-family: var(--font-heading);
+        }
+
+        .price-card .price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            font-family: var(--font-body);
+        }
+
+        .price-card ul {
+            list-style: none;
+            margin-bottom: 35px;
+            flex-grow: 1;
+        }
+
+        .price-card ul li {
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-card ul li i {
+            font-size: 1rem;
+        }
+
+        .price-card ul li.enabled i { color: #2ecc71; }
+        .price-card ul li.disabled {
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+        .price-card ul li.disabled i { color: #e74c3c; }
+
+        .btn-select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            border-radius: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        body.light-mode .btn-select {
+            background: rgba(0,0,0,0.02);
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        .price-card.featured .btn-select {
+            background: var(--border-clan);
+            border: none;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(155, 93, 229, 0.3);
+        }
+
+        .btn-select:hover {
+            background: var(--text-main);
+            color: var(--bg-main);
+            transform: translateY(-2px);
+        }
+
+        /* Proces Współpracy */
+        .process-section {
+            margin-bottom: 60px;
+        }
+
+        .process-section h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .process-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        body.light-mode .process-card {
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .process-card:hover {
+            border-color: var(--border-studio);
+            transform: translateY(-5px);
+        }
+
+        .process-step {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 75, 92, 0.1);
+            color: var(--border-studio);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin: 0 auto 20px auto;
+        }
+
+        .process-card h4 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .process-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- WIDOK: CLAN (WCS) --- */
+        .clan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .clan-grid { grid-template-columns: 1fr; }
+        }
+
+        .clan-left {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .about-clan h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            color: var(--border-clan);
+            margin-bottom: 20px;
+        }
+
+        .about-clan p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Oś czasu (Timeline) */
+        .timeline {
+            background: var(--bg-card);
+            border-radius: 24px;
+            border: 2px dashed rgba(155, 93, 229, 0.3);
+            padding: 35px;
+        }
+
+        .timeline h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            color: var(--text-main);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid var(--border-clan);
+            padding-bottom: 25px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+            border-left: 2px solid transparent;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-clan);
+            box-shadow: 0 0 10px var(--border-clan);
+        }
+
+        .timeline-item h4 {
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 6px;
+            font-family: var(--font-heading);
+        }
+
+        .timeline-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Skład (Roster) */
+        .roster-box h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--border-clan);
+        }
+
+        .roster-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .roster-member {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255,255,255,0.02);
+            padding: 15px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+
+        body.light-mode .roster-member {
+            background: rgba(0,0,0,0.01);
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .roster-member:hover {
+            border-color: var(--border-clan);
+            transform: translateX(5px);
+        }
+
+        .member-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-clan);
+            flex-shrink: 0;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-info {
+            flex-grow: 1;
+        }
+
+        .member-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .member-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .member-link {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .member-link:hover {
+            color: var(--border-clan);
+            transform: scale(1.1);
+        }
+
+        /* Banner Dołącz do WCS */
+        .join-banner {
+            background: linear-gradient(135deg, rgba(155, 93, 229, 0.1) 0%, rgba(10, 8, 14, 0.5) 100%);
+            border: 2px solid var(--border-clan);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 60px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .join-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--glow-clan);
+        }
+
+        .join-banner h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .join-banner p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .join-banner .arrow-link {
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--border-clan);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* --- SEKCJA: KONTAKT --- */
+        .contact-section {
+            margin-top: 80px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 80px;
+        }
+
+        body.light-mode .contact-section {
+            border-top-color: rgba(0,0,0,0.05);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 800px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        .socials-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .socials-box h3 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        body.light-mode .social-link {
+            background: rgba(0,0,0,0.01);
+            border-color: rgba(0,0,0,0.05);
+        }
+
+        .social-link i {
+            font-size: 1.3rem;
+            width: 25px;
+            text-align: center;
+            color: var(--link-color, var(--border-studio));
+        }
+
+        .social-link:hover {
+            transform: translateX(5px);
+            border-color: var(--link-color, var(--border-studio));
+            box-shadow: 0 5px 15px rgba(255,255,255,0.02);
+        }
+
+        /* Formularz */
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 16px;
+            background: var(--bg-main);
+            border: 2px solid rgba(255,255,255,0.08);
+            color: var(--text-main);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        body.light-mode form input, body.light-mode form textarea {
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: var(--border-studio);
+            box-shadow: 0 0 15px var(--glow-studio);
+        }
+
+        form button {
+            padding: 16px;
+            background: var(--text-main);
+            color: var(--bg-main);
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+        }
+
+        form button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Stopka */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 80px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        body.light-mode footer {
+            border-top-color: rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
-<body class="bg-bg text-gray-200 font-body">
+<body>
 
-<!-- PARTICLES BG -->
-<div id="particles-js"></div>
+    <!-- Radialne podświetlenia tła -->
+    <div class="ambient-glow" id="glow1"></div>
+    <div class="ambient-glow" id="glow2"></div>
 
-<div class="content-layer">
-
-  <!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
-  <nav>
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#hero" class="logo-glow">WESTMOON</a>
-      <div class="flex items-center gap-8">
-        <a href="#studio" class="nav-link">Studio</a>
-        <a href="#wcs" class="nav-link">WCS</a>
-        <a href="#kontakt" class="btn-nav">Kontakt</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
-  <section id="hero" class="min-h-screen flex items-center justify-center pt-16 px-6">
-    <div class="text-center max-w-6xl mx-auto">
-      <p class="hero-subtitle mb-6" data-aos="fade-up" data-aos-duration="800">Est. 2026</p>
-      <h1 class="hero-title mb-6" data-aos="fade-up" data-aos-delay="100" data-aos-duration="900">WESTMOON</h1>
-      <p class="hero-subtitle mb-12 text-gray-400" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800" style="color:#888; letter-spacing:0.25em; font-size:0.9rem;">
-        Creative Agency &amp; Esport Organization
-      </p>
-      <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="350" data-aos-duration="700">
-        <a href="#studio" class="btn-primary">Westline Studio</a>
-        <a href="#wcs" class="btn-outline">West Coast Syndicate</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════ STUDIO ═══════════════════════════════════════ -->
-  <section id="studio" class="py-28 px-6">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Heading -->
-      <div class="mb-16" data-aos="fade-up">
-        <p class="section-label mb-3">Design · Branding</p>
-        <h2 class="section-title">WESTLINE<br /><span class="neon-text">STUDIO</span></h2>
-      </div>
-
-      <!-- BENTO GRID -->
-      <div class="bento-grid mb-16">
-
-        <!-- About — span 2 -->
-        <div class="bento-card span-2" data-aos="fade-up" data-aos-delay="0">
-          <p class="section-label mb-4">Kim jestem?</p>
-          <h3 class="font-heading font-bold text-3xl text-white mb-4 uppercase tracking-tight">17-letni grafik.<br/>Wszechstronny. Doświadczony.</h3>
-          <p class="text-gray-400 text-sm leading-relaxed max-w-xl">
-            Westline Studio to projekt 17-letniego grafika z prawdziwą pasją do designu. 
-            Zdobyte doświadczenie podczas praktyk zawodowych oraz codziennych lekcji sprawiły, że potrafię 
-            realizować projekty od wizytówki i plakatu gotowego do druku, przez pełną identyfikację wizualną, 
-            aż po grafikę cyfrową w każdym formacie. Dosłownie wszystko – bez ograniczeń.
-          </p>
-          <div class="flex gap-6 mt-6">
-            <div>
-              <p class="font-heading font-black text-2xl text-neon">50+</p>
-              <p class="text-xs text-gray-500 uppercase tracking-wider">Projektów</p>
-            </div>
-            <div>
-              <p class="font-heading font-black text-2xl text-neon">3+</p>
-              <p class="text-xs text-gray-500 uppercase tracking-wider">Lata praktyki</p>
-            </div>
-            <div>
-              <p class="font-heading font-black text-2xl text-neon">100%</p>
-              <p class="text-xs text-gray-500 uppercase tracking-wider">Zaangażowania</p>
-            </div>
-          </div>
+    <!-- Header -->
+    <header>
+        <div class="logo-nav" onclick="switchView('hub')">
+            <img src="wm.png" alt="Westmoon Co. Logo" id="headerLogo">
         </div>
-
-        <!-- Skills -->
-        <div class="bento-card" data-aos="fade-up" data-aos-delay="80">
-          <p class="section-label mb-4">Specjalizacje</p>
-          <ul class="space-y-3">
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Logo & identyfikacja wizualna
-            </li>
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Grafika przygotowana do druku
-            </li>
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Plakaty, ulotki, wizytówki
-            </li>
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Grafika cyfrowa
-            </li>
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Grafiki na Social Media
-            </li>
-            <li class="flex items-center gap-3 text-sm text-gray-300">
-              <span class="w-2 h-2 rounded-full bg-neon flex-shrink-0"></span> Miniaturki & grafika gamingowa
-            </li>
-          </ul>
-        </div>
-
-        <!-- Narzędzia -->
-        <div class="bento-card" data-aos="fade-up" data-aos-delay="40">
-          <p class="section-label mb-4">Narzędzia</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 text-xs font-semibold rounded-md bg-surface border border-border text-gray-300">Photoshop</span>
-            <span class="px-3 py-1.5 text-xs font-semibold rounded-md bg-surface border border-border text-gray-300">Affinity</span>
-            <span class="px-3 py-1.5 text-xs font-semibold rounded-md bg-surface border border-border text-gray-300">CorelDRAW</span>
-          </div>
-        </div>
-
-        <!-- CTA Bento -->
-        <div class="bento-card" data-aos="fade-up" data-aos-delay="120" style="background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(124,58,237,0.08)); border-color: rgba(168,85,247,0.3);">
-          <p class="section-label mb-3">Gotowy na współpracę?</p>
-          <h3 class="font-heading font-black text-2xl text-white uppercase mb-4">Zbuduj coś swojego razem ze mną!<br/></h3>
-          <a href="#kontakt" class="btn-primary text-sm px-5 py-3">Zamów projekt</a>
-        </div>
-
-      </div>
-
-   <!-- PORTFOLIO -->
-      <div class="mb-20">
-        <div class="flex items-end justify-between mb-8" data-aos="fade-up">
-          <div>
-            <p class="section-label mb-2">Moje prace</p>
-            <h3 class="font-heading font-black text-4xl text-white uppercase">Portfolio</h3>
-          </div>
-          <a href="https://behance.net/gabrielgr_designer" target="_blank" class="nav-link text-gray-500 hover:text-neon-glow">Behance →</a>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-
-          <!-- ▼▼▼ PORTFOLIO 1 — zmień nazwę pliku lub wklej link URL do zdjęcia ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt1.jpg" alt="Projekt 1"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-          <!-- ▼▼▼ PORTFOLIO 2 ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt2.jpg" alt="Projekt 2"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-          <!-- ▼▼▼ PORTFOLIO 3 ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt3.jpg" alt="Projekt 3"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-          <!-- ▼▼▼ PORTFOLIO 4 ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt4.jpg" alt="Projekt 4"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-          <!-- ▼▼▼ PORTFOLIO 5 ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt5.png" alt="Projekt 5"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-          <!-- ▼▼▼ PORTFOLIO 6 ▼▼▼ -->
-          <div class="portfolio-item">
-            <img src="projekt6.png" alt="Projekt 6"
-                 style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-          </div>
-
-        </div>
-      </div>
-
-      <!-- PROCES WSPÓŁPRACY -->
-      <div class="mb-20">
-        <div data-aos="fade-up" class="mb-10">
-          <p class="section-label mb-2">Jak działam?</p>
-          <h3 class="font-heading font-black text-4xl text-white uppercase">Proces Współpracy</h3>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bento-card" data-aos="fade-up" data-aos-delay="0">
-            <p class="step-num">01</p>
-            <h4 class="font-heading font-black text-xl text-white uppercase mb-2 mt-2">Kontakt</h4>
-            <p class="text-gray-500 text-sm leading-relaxed">Wypełniasz formularz lub piszesz na maila. Omawiamy szczegóły projektu i zakres prac.</p>
-          </div>
-          <div class="bento-card" data-aos="fade-up" data-aos-delay="80">
-            <p class="step-num">02</p>
-            <h4 class="font-heading font-black text-xl text-white uppercase mb-2 mt-2">Projekt</h4>
-            <p class="text-gray-500 text-sm leading-relaxed">Tworzę pierwsze koncepty i szkice. Przedstawiam propozycje i czekam na Twój feedback.</p>
-          </div>
-          <div class="bento-card" data-aos="fade-up" data-aos-delay="160">
-            <p class="step-num">03</p>
-            <h4 class="font-heading font-black text-xl text-white uppercase mb-2 mt-2">Poprawki</h4>
-            <p class="text-gray-500 text-sm leading-relaxed">Wprowadzam zmiany na podstawie uwag. Razem dopieszczamy każdy detal, aż będzie perfekcyjny.</p>
-          </div>
-          <div class="bento-card" data-aos="fade-up" data-aos-delay="240">
-            <p class="step-num">04</p>
-            <h4 class="font-heading font-black text-xl text-white uppercase mb-2 mt-2">Finał</h4>
-            <p class="text-gray-500 text-sm leading-relaxed">Dostarczam finalne pliki w potrzebnych formatach. Projekt jest Twój – gotowy do użycia.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- CENNIK -->
-      <div class="mb-20">
-        <div data-aos="fade-up" class="mb-10">
-          <p class="section-label mb-2">Przejrzyste ceny</p>
-          <h3 class="font-heading font-black text-4xl text-white uppercase">Cennik</h3>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-
-          <!-- Single Item -->
-          <div class="price-card" data-aos="fade-up" data-aos-delay="0">
-            <p class="section-label mb-2">Pojedyncza grafika</p>
-            <p class="font-heading font-black text-5xl text-white mb-1">Cena w kontakcie</p>
-            <p class="text-gray-600 text-xs mb-5">/ jedna grafika</p>
-            <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-400">
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> 1 projekt graficzny</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> 1 poprawka</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Pliki zamknięte</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Plik źródłowy (AI/PSD)</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Przygotowanie do druku</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Priorytet realizacji</li>
-            <li class="flex items-start gap-2"><span>🟣</span>Realizacja do 7 dni</li>
+        <nav>
+            <ul>
+                <li><a onclick="switchView('hub')" id="nav-hub">Główna</a></li>
+                <li><a onclick="switchView('studio')" id="nav-studio">Studio</a></li>
+                <li><a onclick="switchView('clan')" id="nav-clan">Clan</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
             </ul>
-            <a href="#kontakt" class="btn-outline text-center mt-auto text-sm py-3 px-4 w-full block">WYBIERZ</a>
-          </div>
-
-          <!-- Basic -->
-          <div class="price-card" data-aos="fade-up" data-aos-delay="80">
-            <p class="section-label mb-2">Basic</p>
-            <p class="font-heading font-black text-5xl text-white mb-1">100<span class="text-2xl text-gray-500">zł</span></p>
-            <p class="text-gray-600 text-xs mb-5">/ pakiet projektów</p>
-            <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-400">
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Miniaturki/ Overlay'e</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> 1 poprawka</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Pliki zamknięte</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Bannery na SocialMedia</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Pliki źródłowe</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Priorytet realizacji</li>
-                <li class="flex items-start gap-2"><span>🟣</span>Realizacja do 5 dni</li>
-            </ul>
-            <a href="#kontakt" class="btn-outline text-center mt-auto text-sm py-3 px-4 w-full block">WYBIERZ</a>
-          </div>
-
-          <!-- Standard — featured -->
-          <div class="price-card featured" data-aos="fade-up" data-aos-delay="160">
-            <p class="section-label mb-2">Standard</p>
-            <p class="font-heading font-black text-5xl text-white mb-1">200<span class="text-2xl text-gray-500">zł</span></p>
-            <p class="text-gray-600 text-xs mb-5">/ pełna identyfikacja</p>
-            <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-400">
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> To co BASIC+</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Logo, Broszury, Plakaty</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> 2 poprawki</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Pliki źródłowe (AI/PSD)</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Wizytówki</li>
-              <li class="flex items-start gap-2"><span class="text-gray-700 mt-0.5">✗</span> Priorytet realizacji</li>
-                <li class="flex items-start gap-2"><span>🟣</span>Realizacja 3-5 dni</li>
-            </ul>
-            <a href="#kontakt" class="btn-primary text-center mt-auto text-sm py-3 px-4 w-full block">WYBIERZ</a>
-          </div>
-
-          <!-- Premium -->
-          <div class="price-card" data-aos="fade-up" data-aos-delay="240">
-            <p class="section-label mb-2">Premium</p>
-            <p class="font-heading font-black text-5xl text-white mb-1">300<span class="text-2xl text-gray-500">zł</span></p>
-            <p class="text-gray-600 text-xs mb-5">/ kompleksowa obsługa</p>
-            <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-400">
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> To co BASIC+STANDARD</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Pliki wielkoformatowe</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Niestandardowe materiały</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> 3 poprawki</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Priorytet realizacji</li>
-              <li class="flex items-start gap-2"><span class="text-neon mt-0.5">✓</span> Realizacja do 3 dni</li>
-                <li class="flex items-start gap-2"><span>🟣</span>Realizacja do 3 dni</li>
-            </ul>
-            <a href="#kontakt" class="btn-outline text-center mt-auto text-sm py-3 px-4 w-full block">WYBIERZ</a>
-          </div>
-
+        </nav>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">Light Mode</button>
         </div>
-      </div>
+    </header>
 
-      <!-- Studio CTA Banner -->
-      <div class="bento-card span-3 text-center py-14" data-aos="fade-up" style="background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(124,58,237,0.05)); border-color: rgba(168,85,247,0.25);">
-        <p class="section-label mb-3">Gotowy?</p>
-        <h3 class="font-heading font-black text-5xl md:text-6xl text-white uppercase mb-6">Zamów Projekt</h3>
-        <p class="text-gray-500 text-sm mb-8 max-w-md mx-auto">Napisz do nas i zacznijmy tworzyć coś wyjątkowego. Odpowiadamy w ciągu 24h.</p>
-        <a href="#kontakt" class="btn-primary">Skontaktuj się</a>
-      </div>
+    <div class="container">
 
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════ SEPARATOR ═══════════════════════════════════════ -->
-  <div class="py-16 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="section-sep"></div>
-      <div class="flex items-center justify-center gap-8 mt-6">
-        <span class="font-heading font-black text-sm text-gray-700 uppercase tracking-widest">Westline Studio</span>
-        <span class="font-heading font-black text-xs text-neon uppercase tracking-widest opacity-40">✦</span>
-        <span class="font-heading font-black text-sm text-gray-700 uppercase tracking-widest">West Coast Syndicate</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════ WCS ═══════════════════════════════════════ -->
-  <section id="wcs" class="py-28 px-6">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Heading -->
-      <div class="mb-16" data-aos="fade-up">
-        <p class="section-label mb-3">Esport · Gaming · Competitive</p>
-        <h2 class="section-title">WEST COAST<br /><span class="neon-text">SYNDICATE</span></h2>
-      </div>
-
-      <!-- Intro -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-        <div data-aos="fade-right">
-          <p class="text-gray-400 leading-relaxed text-sm mb-4">
-            West Coast Syndicate to polska organizacja esportowa założona na początku 2026 roku. Naszą misją jest budowanie 
-            zwycięskich składów, rozwijanie talentów i tworzenie społeczności, która żyje i oddycha grą.
-          </p>
-          <p class="text-gray-500 leading-relaxed text-sm">
-            Jesteśmy na wczesnym etapie – budujemy skład, prowadzimy regularne treningi i szukamy najlepszych zawodników, 
-            którzy chcą wygrywać razem z nami. Dołącz do ruchu.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-4 items-start" data-aos="fade-left">
-          <div class="bento-card flex-1 min-w-32 text-center py-5">
-            <p class="font-heading font-black text-4xl text-neon">2026</p>
-            <p class="text-xs text-gray-600 uppercase tracking-wider mt-1">Założona</p>
-          </div>
-          <div class="bento-card flex-1 min-w-32 text-center py-5">
-            <p class="font-heading font-black text-4xl text-neon">4</p>
-            <p class="text-xs text-gray-600 uppercase tracking-wider mt-1">Zawodników</p>
-          </div>
-          <div class="bento-card flex-1 min-w-32 text-center py-5">
-            <p class="font-heading font-black text-4xl text-neon">∞</p>
-            <p class="text-xs text-gray-600 uppercase tracking-wider mt-1">Ambicji</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- TIMELINE -->
-      <div class="mb-20">
-        <div data-aos="fade-up" class="mb-10">
-          <p class="section-label mb-2">Nasza droga</p>
-          <h3 class="font-heading font-black text-4xl text-white uppercase">Historia</h3>
+        <!-- ================= WIDOK: HUB / INDEX ================= -->
+        <div id="view-hub" class="view active-view">
+            <main class="hero">
+                <h1>Westmoon</h1>
+                <div class="tags">
+                    creative <span>•</span> fun <span>•</span> design <span>•</span> passion <span>•</span> esport
+                </div>
+                <div class="cta-buttons">
+                    <button onclick="switchView('studio')" class="btn-main btn-studio">Westline Studio</button>
+                    <button onclick="switchView('clan')" class="btn-main btn-clan">West Coast Syndicate</button>
+                </div>
+            </main>
         </div>
 
-        <div class="space-y-0" data-aos="fade-up" data-aos-delay="100">
-          <!-- Item 1 -->
-          <div class="flex gap-6">
-            <div class="flex flex-col items-center">
-              <div class="timeline-dot mt-1"></div>
-              <div class="w-px flex-1 bg-neon opacity-20 my-2"></div>
+        <!-- ================= WIDOK: STUDIO ================= -->
+        <div id="view-studio" class="view">
+            <div class="page-header-area">
+                <h2 class="page-title">Westline Studio</h2>
+                <a onclick="scrollToContact('Zlecenie ogólne (Westline Studio)')" class="btn-action" style="--action-color: var(--border-studio);">Zamów projekt!</a>
             </div>
-            <div class="pb-10">
-              <p class="section-label mb-1">Styczeń 2026</p>
-              <h4 class="font-heading font-black text-2xl text-white uppercase mb-2">Powstanie WCS</h4>
-              <p class="text-gray-500 text-sm leading-relaxed max-w-xl">
-                West Coast Syndicate zostaje oficjalnie założone. Pierwsze kontakty z zawodnikami, 
-                pierwsze treningi, pierwszy krok w stronę profesjonalnego esportu.
-              </p>
+
+            <!-- Siatka Górna: O Mnie & Portfolio -->
+            <div class="studio-grid">
+                <div class="section-box about-studio" style="--box-border: var(--border-studio);">
+                    <h3>O mnie</h3>
+                    <p>
+                        Jestem młodym, ambitnym grafikiem z doświadczeniem przy pracy z największymi firmami jak i z ukończonym kursem Photoshop'a. Moja komunikatywność, kreatywność, dbałość o detale i terminowość sprawiają, że każdy projekt jest realizowany na najwyższym poziomie.
+                    </p>
+                    <p>
+                        Odbyłem miesięczne praktyki w międzynarodowej drukarni "Seepoint" w kótrej zdobyłem ogromne doświadczenie (chociażby dzięki robieniu grafiki np. dla Mercedesa). Chodzę do technikum o profilu grafiki i poligrafii cyfrowej (jestem w 3 klasie). Ukończone kursy z Adobe Photoshop myślę, że też są całkiem ładne na CV haha :)
+                    </p>
+                </div>
+                
+                <!-- Kafelki Portfolio z grafikami przekierowującymi -->
+                <div class="portfolio-grid">
+                    <a href="obraz1.png" class="portfolio-item">
+                        <img src="projekt1.jpg" alt="Projekt Portfolio 1" onerror="this.style.display='none';">
+                        <div class="overlay">
+                            <h4>Projekt #1</h4>
+                            <p>Pozłacana Broszura</p>
+                        </div>
+                    </a>
+                    <a href="obraz2.png" class="portfolio-item">
+                        <img src="projekt2.jpg" alt="Projekt Portfolio 2" onerror="this.style.display='none';">
+                        <div class="overlay">
+                            <h4>Projekt #2</h4>
+                            <p>Ulotka fikcyjna podróży po Rio De Janeiro</p>
+                        </div>
+                    </a>
+                    <a href="obraz3.png" class="portfolio-item">
+                        <img src="projekt4.jpg" alt="Projekt Portfolio 3" onerror="this.style.display='none';">
+                        <div class="overlay">
+                            <h4>Projekt #3</h4>
+                            <p>Wizytówka firmowa</p>
+                        </div>
+                    </a>
+                    <a href="obraz4.png" class="portfolio-item">
+                        <img src="projekt5.png" alt="Projekt Portfolio 4" onerror="this.style.display='none';">
+                        <div class="overlay">
+                            <h4>Projekt #4</h4>
+                            <p>Miniaturka YouTube</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
-          <!-- Item 2 -->
-          <div class="flex gap-6">
-            <div class="flex flex-col items-center">
-              <div class="timeline-dot mt-1" style="background: var(--neon-glow); box-shadow: 0 0 20px var(--neon);"></div>
-              <div class="w-px flex-1 bg-transparent my-2"></div>
+
+            <!-- Cennik -->
+            <div class="pricing-section">
+                <!-- Pakiet 1 -->
+                <div class="price-card">
+                    <h4>Pojedyncza Grafika</h4>
+                    <div class="price">Wycena osobna</div>
+                    <ul>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> 1 dedykowany projekt</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> 1 runda poprawek</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Pliki wynikowe (PNG/JPG)</li>
+                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> Brak plików źródłowych</li>
+                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> Bez przygotowania do druku</li>
+                        <div>💥Standardowy czas realizacji</div>
+                    </ul>
+                    <button onclick="scrollToContact('Pojedyncza Grafika')" class="btn-select">Wybierz</button>
+                </div>
+
+                <!-- Pakiet 2 -->
+                <div class="price-card">
+                    <h4>Basic</h4>
+                    <div class="price">100 zł <span>/ pakiet startowy</span></div>
+                    <ul>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Projekt miniatury / overlay</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> 1 runda poprawek</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Pliki wynikowe wysokiej jakości</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Banner na wybrane Social Media</li>
+                        <li class="disabled"><i class="fa-solid fa-circle-xmark"></i> Brak plików źródłowych</li>
+                        <div>💥Realizacja do 5 dni roboczych</div>
+                    </ul>
+                    <button onclick="scrollToContact('Pakiet Basic')" class="btn-select">Wybierz</button>
+                </div>
+
+                <!-- Pakiet 3 (Featured) -->
+                <div class="price-card featured">
+                    <div class="badge">Polecane</div>
+                    <h4>Standard</h4>
+                    <div class="price">200 zł <span>/ pełny branding</span></div>
+                    <ul>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Wszystko co w pakiecie BASIC</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Projekt logo, broszur lub plakatów</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> 2 rundy poprawek</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Pliki źródłowe (AI / PSD / PDF)</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Projekt wizytówki do druku</li>
+                        <div>💥Realizacja do 3-5 dni</div>
+                    </ul>
+                    <button onclick="scrollToContact('Pakiet Standard')" class="btn-select">Wybierz</button>
+                </div>
+
+                <!-- Pakiet 4 -->
+                <div class="price-card">
+                    <h4>Premium</h4>
+                    <div class="price">300 zł <span>/ kompleksowy</span></div>
+                    <ul>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Pakiety BASIC + STANDARD</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Pliki wielkoformatowe</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Niestandardowe materiały</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Nielimitowane poprawki (do 3)</li>
+                        <li class="enabled"><i class="fa-solid fa-circle-check"></i> Ekspresowy priorytet wsparcia</li>
+                        <div>💥Realizacja ekspresowa (3 dni)</div>
+                    </ul>
+                    <button onclick="scrollToContact('Pakiet Premium')" class="btn-select">Wybierz</button>
+                </div>
             </div>
-            <div class="pb-4">
-              <p class="section-label mb-1" style="color: var(--neon-glow);">Obecnie · 2026</p>
-              <h4 class="font-heading font-black text-2xl text-white uppercase mb-2">Budowanie składu & Treningi</h4>
-              <p class="text-gray-500 text-sm leading-relaxed max-w-xl">
-                Intensywne rekrutacje, codzienne sesje treningowe i budowanie chemii drużynowej. 
-                WCS rośnie. Szukamy zawodników z ambicją i wolą walki.
-              </p>
-              <span class="inline-flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full text-xs font-semibold bg-neon bg-opacity-10 border border-neon border-opacity-30 text-neon" style="font-family:'Barlow Condensed',sans-serif; letter-spacing:0.1em;">
-                <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span> W TOKU
-              </span>
+
+            <!-- Proces Współpracy -->
+            <div class="process-section">
+                <h3>Jak wygląda współpraca?</h3>
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="process-step">1</div>
+                        <h4>Kontakt</h4>
+                        <p>Wypełniasz formularz na dole strony, określając swoje oczekiwania.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step">2</div>
+                        <h4>Brief</h4>
+                        <p>Omawiamy koncepcje, inspiracje oraz docelowy format i styl prac.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step">3</div>
+                        <h4>Wycena</h4>
+                        <p>Dopasowujemy odpowiedni pakiet i akceptujemy warunki budżetu.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step">4</div>
+                        <h4>Kreacja</h4>
+                        <p>Przygotowuję wstępne projekty i wspólnie wprowadzamy modyfikacje.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step">5</div>
+                        <h4>Finał</h4>
+                        <p>Po akceptacji projektu otrzymujesz komplet gotowych, czystych plików.</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
 
-      <!-- ROSTER -->
-      <div class="mb-20">
-        <div data-aos="fade-up" class="mb-10">
-          <p class="section-label mb-2">Drużyna</p>
-          <h3 class="font-heading font-black text-4xl text-white uppercase">Roster</h3>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          <div class="roster-card" data-aos="fade-up" data-aos-delay="0">
-            <div class="roster-avatar">AF</div>
-            <p class="font-heading font-black text-lg text-white uppercase">AFGAN</p>
-            <p class="text-xs text-gray-600 mt-1 uppercase tracking-widest">Player</p>
-          </div>
-          <div class="roster-card" data-aos="fade-up" data-aos-delay="60">
-            <div class="roster-avatar">BI</div>
-            <p class="font-heading font-black text-lg text-white uppercase">BILLY</p>
-            <p class="text-xs text-gray-600 mt-1 uppercase tracking-widest">Player</p>
-          </div>
-          <div class="roster-card" data-aos="fade-up" data-aos-delay="120">
-            <div class="roster-avatar">JA</div>
-            <p class="font-heading font-black text-lg text-white uppercase">JAPKO<br/>CHICAGO</p>
-            <p class="text-xs text-gray-600 mt-1 uppercase tracking-widest">Player</p>
-          </div>
-          <div class="roster-card" data-aos="fade-up" data-aos-delay="180">
-            <div class="roster-avatar">VE</div>
-            <p class="font-heading font-black text-lg text-white uppercase">VERSI</p>
-            <p class="text-xs text-gray-600 mt-1 uppercase tracking-widest">Player</p>
-          </div>
-          <div class="roster-card pulse-card" data-aos="fade-up" data-aos-delay="240" style="background: rgba(168,85,247,0.05);">
-            <div class="roster-avatar" style="background: transparent; border: 2px dashed rgba(168,85,247,0.4);">
-              <span class="text-neon text-2xl font-black">+</span>
+        <!-- ================= WIDOK: CLAN ================= -->
+        <div id="view-clan" class="view">
+            <div class="page-header-area">
+                <h2 class="page-title">West Coast Syndicate</h2>
             </div>
-            <p class="font-heading font-black text-lg text-neon uppercase">Rekrutacja</p>
-            <p class="text-xs text-gray-600 mt-1 uppercase tracking-widest">Dołącz do nas</p>
-          </div>
+
+            <div class="clan-grid">
+                <!-- Lewa kolumna: O nas & Oś czasu -->
+                <div class="clan-left">
+                    <div class="section-box about-clan" style="--box-border: var(--border-clan);">
+                        <h3>O nas</h3>
+                        <p>
+                            West Coast Syndicate to amatorski zespół esportowy, który tworzony jest przez przyjaciół wspólnie grających w Counter-Strike. Wiadomo, robimy to dla zabawy i rywalizacji ale z wielkimi ambicjami. 
+                        </p>
+                    </div>
+
+                    <div class="timeline">
+                        <h3>Nasza Historia</h3>
+                        <div class="timeline-item">
+                            <h4>Powstanie WCS</h4>
+                            <p>Zrodzenie się pomysłu, zaprojektowanie unikalnego logo oraz zdefiniowanie celów rozwoju klanu</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4>Budowa składu i treningi</h4>
+                            <p>Wybranie spośród przyjaciół tych najlpeszych i najbardzije zajaranych. Spontaniczne treningi i plany o pierwszy, profesjonalny mecz</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: Skład -->
+                <div class="clan-left">
+                    <div class="section-box roster-box" style="--box-border: var(--border-clan);">
+                        <h3>Aktualny Skład</h3>
+                        
+                        <div class="roster-list">
+                            <!-- Zawodnik 1 -->
+                            <div class="roster-member">
+                                <div class="member-avatar">
+                                    <img src="alan.jpg" alt="Zawodnik 1" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=hyper';">
+                                </div>
+                                <div class="member-info">
+                                    <h4>JapkoChicago</h4>
+                                    <p>IGL / AWPer</p>
+                                </div>
+                                <a href="https://steamcommunity.com/profiles/76561199044847798" class="member-link" target="_blank"><i class="fa-brands fa-steam"></i></a>
+                            </div>
+
+                            <!-- Zawodnik 2 -->
+                            <div class="roster-member">
+                                <div class="member-avatar">
+                                    <img src="afgan.jpg" alt="Zawodnik 2" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=shadow';">
+                                </div>
+                                <div class="member-info">
+                                    <h4>Afgan</h4>
+                                    <p>AWPer / Lurker</p>
+                                </div>
+                                <a href="https://steamcommunity.com/id/afganol/" class="member-link" target="_blank"><i class="fa-brands fa-steam"></i></a>
+                            </div>
+
+                            <!-- Zawodnik 3 -->
+                            <div class="roster-member">
+                                <div class="member-avatar">
+                                    <img src="patryk.jpg" alt="Zawodnik 3" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=nexus';">
+                                </div>
+                                <div class="member-info">
+                                    <h4>Billy</h4>
+                                    <p>Entry Fragger</p>
+                                </div>
+                                <a href="https://steamcommunity.com/profiles/76561198751005514" class="member-link" target="_blank"><i class="fa-brands fa-steam"></i></a>
+                            </div>
+
+                            <!-- Zawodnik 4 -->
+                            <div class="roster-member">
+                                <div class="member-avatar">
+                                    <img src="versi.jfif" alt="Zawodnik 4" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=spark';">
+                                </div>
+                                <div class="member-info">
+                                    <h4>VersI</h4>
+                                    <p>Support / Rifler</p>
+                                </div>
+                                <a href="https://steamcommunity.com/profiles/76561199479077196" class="member-link" target="_blank"><i class="fa-brands fa-steam"></i></a>
+                            </div>
+
+                            <!-- Miejsce 5: Rekrutacja -->
+                            <div class="roster-member" style="border: 2px dashed var(--border-clan); background: rgba(155, 93, 229, 0.03);">
+                                <div class="member-avatar" style="border-style: dashed; background: var(--bg-main);">
+                                    <img src="anonimo.png" alt="Dołącz" onerror="this.src='https://api.dicebear.com/7.x/pixel-art/svg?seed=question&backgroundColor=transparent';">
+                                </div>
+                                <div class="member-info">
+                                    <h4 style="color: var(--border-clan);">Wolny Slot</h4>
+                                    <p>Czekamy właśnie na Ciebie!</p>
+                                </div>
+                                <a onclick="scrollToContact('Rekrutacja do dywizji WCS')" class="member-link" style="color: var(--border-clan); cursor: pointer;"><i class="fa-solid fa-circle-plus"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Baner dołączenia pod składem -->
+            <div class="join-banner" onclick="scrollToContact('Chcę dołączyć do klanu WCS!')">
+                <h3>Dołącz do West Coast Syndicate</h3>
+                <p>Uważasz, że masz to coś i chcesz współtworzyć markę WCS? Rekrutacja jest stale otwarta!</p>
+                <div class="arrow-link">Wyślij zgłoszenie <i class="fa-solid fa-arrow-right-long"></i></div>
+            </div>
         </div>
-      </div>
 
-      <!-- WCS CTA -->
-      <div class="bento-card text-center py-14" data-aos="fade-up" style="background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(124,58,237,0.06)); border-color: rgba(168,85,247,0.3);">
-        <p class="section-label mb-3">Otwarta rekrutacja</p>
-        <h3 class="font-heading font-black text-5xl md:text-6xl text-white uppercase mb-4">Dołącz do WCS</h3>
-        <p class="text-gray-500 text-sm mb-8 max-w-md mx-auto">Szukamy zawodników z ambicją. Jeśli jesteś gotowy walczyć o wygraną – to miejsce dla Ciebie.</p>
-        <a href="#kontakt" class="btn-primary">Dołącz</a>
-      </div>
+        <!-- ================= SEKCJA: KONTAKT (WSPÓLNA NA DOLE STRONY) ================= -->
+        <section class="contact-section" id="kontakt">
+            <h2 class="page-title" style="margin-bottom: 45px;">Skontaktuj się ze mną</h2>
+            <div class="contact-grid">
+                
+                <!-- Social Media -->
+                <div class="socials-box">
+                    <h3>Social Media</h3>
+                    
+                    <a href="mailto:westmoon.co@proton.me" class="social-link" style="--link-color: #ff4b5c;">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>westmoon.co@proton.me</span>
+                    </a>
+                    
+                    <a href="https://behance.net/gabrielgr_designer" target="_blank" class="social-link" style="--link-color: #0057ff;">
+                        <i class="fa-brands fa-behance"></i>
+                        <span>gabrielgr_designer</span>
+                    </a>
+                    
+                    <a href="https://discord.gg/mhYxr7CmU8" target="_blank" class="social-link" style="--link-color: #5865f2;">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>Serwer Discord</span>
+                    </a>
+
+                     <a href="https://www.tiktok.com/@westmoon2026?lang=pl-PL" target="_blank" class="social-link" style="--link-color: #eb1255;">
+                        <i class="fa-brands fa-tiktok"></i>
+                        <span>TikTok</span>
+                    </a>
+
+                    <a href="https://www.instagram.com/westmoon2026/" target="_blank" class="social-link" style="--link-color: #9500ff;">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+
+                <!-- Formularz kontaktowy podpięty pod Formspree -->
+                <div class="section-box" style="--box-border: var(--border-clan);">
+                    <form action="https://formspree.io/f/xeenqkal" method="POST">
+                        <div class="form-group">
+                            <label for="name">Imię lub Nick</label>
+                            <input type="text" name="name" id="name" placeholder="np. Gabriel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Twój E-mail</label>
+                            <input type="email" name="email" id="email" placeholder="np. twojmail@proton.me" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Temat wiadomości</label>
+                            <input type="text" name="subject" id="subject" placeholder="np. Zamówienie projektu / Rekrutacja" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Treść wiadomości</label>
+                            <textarea name="message" id="message" rows="5" placeholder="Opisz swoje potrzeby, pakiet, wymogi lub zgłoszenie..." required></textarea>
+                        </div>
+                        <button type="submit">Wyślij wiadomość</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
 
     </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════ KONTAKT ═══════════════════════════════════════ -->
-  <section id="kontakt" class="py-28 px-6">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-16" data-aos="fade-up">
-        <p class="section-label mb-3">Porozmawiajmy</p>
-        <h2 class="section-title">KONTAKT</h2>
-      </div>
+    <!-- Stopka -->
+    <footer>
+        <p>&copy; 2026 Westmoon Co. All Rights Reserved. Designed with passion.</p>
+    </footer>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <!-- Logika aplikacji -->
+    <script>
+        // System routingu SPA (przełączanie widoków)
+        function switchView(viewName) {
+            // Ukryj wszystkie widoki
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active-view');
+            });
 
-        <!-- Left: tiles -->
-        <div>
-          <div class="grid grid-cols-1 gap-4 mb-8">
-            <a href="mailto:westmoon.co@proton.me" class="contact-tile" data-aos="fade-right" data-aos-delay="0">
-              <div class="tile-icon" style="flex-shrink:0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--neon)" stroke-width="1.5">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/>
-                  <path d="M2 8l10 6 10-6"/>
-                </svg>
-              </div>
-              <div class="flex-1">
-                <p class="font-heading font-black text-xl text-white uppercase mb-0.5">Email</p>
-                <p class="text-gray-500 text-sm">westmoon.co@proton.me</p>
-                <p class="text-gray-700 text-xs mt-0.5">Odpowiadamy w ciągu 24 godzin</p>
-              </div>
-            </a>
+            // Pokaż wybrany widok
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.add('active-view');
+            }
 
-            <a href="https://behance.net/gabrielgr_designer" target="_blank" rel="noopener" class="contact-tile" data-aos="fade-right" data-aos-delay="80">
-              <div class="tile-icon" style="flex-shrink:0;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--neon)">
-                  <path d="M7.803 5.731c.589 0 1.119.051 1.605.155.483.103.895.273 1.243.508.343.235.611.547.804.939.187.387.28.86.28 1.41 0 .6-.136 1.1-.405 1.494-.271.397-.677.724-1.215.98.735.214 1.285.59 1.65 1.127.36.537.54 1.18.54 1.929 0 .605-.115 1.128-.35 1.58-.233.45-.553.825-.961 1.122-.407.295-.876.515-1.414.659-.537.144-1.098.216-1.69.216H1V5.731h6.803zm-.351 4.972c.48 0 .878-.114 1.192-.344.312-.23.466-.604.466-1.12 0-.286-.051-.522-.154-.706-.104-.184-.24-.327-.412-.43-.172-.1-.37-.17-.595-.208-.226-.036-.46-.055-.706-.055H3.62v2.863h3.832zm.16 5.239c.267 0 .521-.025.76-.075.24-.049.454-.13.638-.243.186-.113.335-.267.447-.46.113-.194.169-.443.169-.748 0-.592-.166-1.01-.5-1.254-.332-.244-.773-.366-1.322-.366H3.62v3.146h3.992zm9.85-5.978c-.473 0-.88.107-1.213.324-.334.216-.566.575-.696 1.076h3.676c-.1-.504-.315-.863-.644-1.076-.328-.217-.71-.324-1.123-.324zm-1.898 5.014c.373.356.887.534 1.544.534.481 0 .898-.12 1.248-.36.35-.24.566-.495.647-.763h2.332c-.37 1.143-.943 1.96-1.716 2.45-.773.49-1.71.736-2.812.736-.765 0-1.456-.12-2.07-.366-.612-.244-1.134-.592-1.565-1.046-.43-.454-.765-.993-1.001-1.618-.237-.624-.355-1.308-.355-2.05 0-.72.12-1.39.365-2.012.243-.623.59-1.163 1.037-1.62.447-.458.978-.815 1.59-1.072.614-.257 1.293-.386 2.038-.386.832 0 1.565.16 2.197.477.633.316 1.158.742 1.573 1.277.414.535.716 1.15.904 1.842.188.693.255 1.424.2 2.192h-5.98c.044.698.258 1.228.624 1.785zm-3.364-9.978h5.695v1.344h-5.695V5z"/>
-                </svg>
-              </div>
-              <div class="flex-1">
-                <p class="font-heading font-black text-xl text-white uppercase mb-0.5">Behance</p>
-                <p class="text-gray-500 text-sm">@gabrielgr_designer</p>
-                <p class="text-gray-700 text-xs mt-0.5">Pełne portfolio moich prac</p>
-              </div>
-            </a>
+            // Aktualizuj style nawigacji
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.classList.remove('active');
+            });
 
-            <a href="https://discord.gg/mhYxr7CmU8" target="_blank" rel="noopener" class="contact-tile" data-aos="fade-right" data-aos-delay="160">
-              <div class="tile-icon" style="flex-shrink:0;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--neon)">
-                  <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                </svg>
-              </div>
-              <div class="flex-1">
-                <p class="font-heading font-black text-xl text-white uppercase mb-0.5">Discord</p>
-                <p class="text-gray-500 text-sm">West Coast Syndicate</p>
-                <p class="text-gray-700 text-xs mt-0.5">Raj dla gamingu</p>
-              </div>
-            </a>
-          </div>
-        </div>
+            const activeLink = document.getElementById('nav-' + viewName);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
 
-        <!-- Right: Form -->
-<div data-aos="fade-left" data-aos-delay="100">
-    <div class="bento-card" style="padding: 2.5rem;">
-        <p class="section-label mb-6">Formularz kontaktowy</p>
-        
-        <!-- ZMIANA: div zamieniony na form, dodany link Formspree -->
-      <form action="https://formspree.io/f/xeenqkal" method="POST" class="space-y-4">
-    <div>
-        <label class="...">Imię i Nazwisko</label>
-        <!-- MUSI BYĆ name="name" -->
-        <input type="text" name="name" class="form-input" placeholder="Jan Kowalski" required />
-    </div>
+            // Dostosuj kolory poświaty i menu w zależności od wybranego widoku
+            const root = document.documentElement;
+            if (viewName === 'studio') {
+                root.style.setProperty('--active-color', 'var(--border-studio)');
+                root.style.setProperty('--glow-color', 'var(--glow-studio)');
+                document.getElementById('headerLogo').src = 'wl.png'; // Westline Studio logo
+            } else if (viewName === 'clan') {
+                root.style.setProperty('--active-color', 'var(--border-clan)');
+                root.style.setProperty('--glow-color', 'var(--glow-clan)');
+                document.getElementById('headerLogo').src = 'wcs.png'; // West Coast Syndicate logo
+            } else {
+                root.style.setProperty('--active-color', 'var(--border-studio)');
+                root.style.setProperty('--glow-color', 'var(--glow-studio)');
+                document.getElementById('headerLogo').src = 'wm.png'; // Westmoon hub logo
+            }
 
-    <div>
-        <label class="...">Email</label>
-        <!-- MUSI BYĆ name="email" -->
-        <input type="email" name="email" class="form-input" placeholder="jan@example.com" required />
-    </div>
+            // Przewiń na górę strony przy zmianie podstrony
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
 
-    <div>
-        <label class="...">Temat</label>
-        <!-- MUSI BYĆ name="subject" -->
-        <select name="subject" class="form-input">
-            <option value="wspolpraca">Współpraca</option>
-            <option value="projekt">Zamówienie projektu</option>
-        </select>
-    </div>
+        // Przejście z CTA prosto do formularza z uzupełnieniem tematu / wiadomości
+        function scrollToContact(contextText) {
+            // Przełącz na stronę główną, na której znajduje się wspólny formularz kontaktowy
+            switchView('hub');
 
-    <div>
-        <label class="...">Wiadomość</label>
-        <!-- MUSI BYĆ name="message" -->
-        <textarea name="message" class="form-input" rows="5" required></textarea>
-    </div>
+            // Wypełnij pole tematu lub wiadomości w zależności od klikniętego przycisku
+            const subjectField = document.getElementById('subject');
+            const messageField = document.getElementById('message');
 
-    <button type="submit" class="btn-primary w-full text-center">Wyślij wiadomość -></button>
-</form>
-    </div>
-</div>
+            if (subjectField && messageField) {
+                subjectField.value = contextText;
+                
+                if (contextText.includes('Pakiet') || contextText.includes('Grafika')) {
+                    messageField.value = `Cześć! Interesuje mnie oferta: ${contextText}. Chciałbym omówić szczegóły i doprecyzować zakres projektu. Proszę o kontakt.`;
+                } else if (contextText.includes('Rekrutacja') || contextText.includes('WCS')) {
+                    messageField.value = `Cześć! Chcę zgłosić swoją kandydaturę do dywizji West Coast Syndicate. Chętnie opowiem o swoim doświadczeniu i umiejętnościach...`;
+                } else {
+                    messageField.value = `Cześć! Chcę podjąć współpracę. Mój projekt dotyczy...`;
+                }
+            }
 
-  <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
-  <footer class="py-10 px-6">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <a href="#hero" class="logo-glow" style="font-size: 1.2rem;">WESTMOON</a>
-      <div class="flex items-center gap-8">
-        <a href="#studio" class="nav-link text-gray-700">Studio</a>
-        <a href="#wcs" class="nav-link text-gray-700">WCS</a>
-        <a href="#kontakt" class="nav-link text-gray-700">Kontakt</a>
-      </div>
-      <p class="text-gray-800 text-xs font-body">© 2026 WESTMOON. Wszelkie prawa zastrzeżone.</p>
-    </div>
-  </footer>
+            // Przewiń płynnie do sekcji kontaktu
+            setTimeout(() => {
+                const contactSec = document.getElementById('kontakt');
+                if (contactSec) {
+                    contactSec.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        }
 
-</div><!-- end content-layer -->
+        // Obsługa przełącznika ciemnego i jasnego motywu (Dark/Light mode)
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeBtn');
 
-<!-- Toast notification -->
-<div id="toast" style="
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
-  background: var(--card); border: 1px solid rgba(168,85,247,0.4);
-  border-radius: 10px; padding: 1rem 1.5rem;
-  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem;
-  color: var(--neon-glow); letter-spacing: 0.05em; text-transform: uppercase;
-  box-shadow: 0 0 32px rgba(168,85,247,0.2);
-  transform: translateY(120%); transition: transform 0.4s ease;
-  pointer-events: none;
-">✓ Wiadomość wysłana!</div>
+            body.classList.toggle('light-mode');
 
-<script>
-  // AOS init
-  AOS.init({ duration: 700, easing: 'ease-out', once: true, offset: 60 });
+            let activeTheme = 'dark';
+            if (body.classList.contains('light-mode')) {
+                activeTheme = 'light';
+                themeBtn.textContent = 'Dark Mode';
+            } else {
+                themeBtn.textContent = 'Light Mode';
+            }
+            
+            // Zapis do localStorage, by zachować motyw przy odświeżaniu
+            localStorage.setItem('theme', activeTheme);
+        }
 
-  // Particles
-  particlesJS('particles-js', {
-    particles: {
-      number: { value: 90, density: { enable: true, value_area: 900 } },
-      color: { value: '#a855f7' },
-      shape: { type: 'circle' },
-      opacity: { value: 0.55, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-      size: { value: 2.5, random: true, anim: { enable: false } },
-      line_linked: {
-        enable: true,
-        distance: 130,
-        color: '#a855f7',
-        opacity: 0.12,
-        width: 1
-      },
-      move: {
-        enable: true,
-        speed: 4.5,
-        direction: 'none',
-        random: true,
-        straight: false,
-        out_mode: 'out',
-        bounce: false
-      }
-    },
-    interactivity: {
-      detect_on: 'canvas',
-      events: {
-        onhover: { enable: true, mode: 'grab' },
-        onclick: { enable: false },
-        resize: true
-      },
-      modes: {
-        grab: { distance: 160, line_linked: { opacity: 0.35 } }
-      }
-    },
-    retina_detect: true
-  });
-
-  // Form toast
-  function handleFormSubmit() {
-    const toast = document.getElementById('toast');
-    toast.style.transform = 'translateY(0)';
-    setTimeout(() => { toast.style.transform = 'translateY(120%)'; }, 3000);
-  }
-</script>
-
+        // Wczytanie motywu użytkownika na starcie
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeBtn = document.getElementById('themeBtn');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                if (themeBtn) themeBtn.textContent = 'Dark Mode';
+            }
+            
+            // Domyślny start na Hubie
+            switchView('hub');
+        });
+    </script>
 </body>
 </html>
